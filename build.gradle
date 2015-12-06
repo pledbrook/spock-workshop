@@ -1,3 +1,9 @@
 allprojects {
-	apply plugin: "idea"
+    apply plugin: "idea"
+}
+
+idea {
+    project {
+        vcs = 'Git'
+    }
 }
