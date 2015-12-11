@@ -3,6 +3,14 @@ package org.example.training
 import spock.lang.Specification
 
 class Workshop04Spec extends Specification {
+    static final String SAMPLE_TEXT = """\
+Title,Author,ISBN
+Colossus,Niall Ferguson,32486286
+Empire,Niall Ferguson,29457346
+Misery,Stephen King,04353487
+The Kite Runner,Khaled Hosseini,43527654
+The Chamber of Secrets,J. K. Rowling,14358761
+"""
 
     /**
      * <p>TODO #10: Write a feature method for {@link WordStats#getCharCount()}.
@@ -13,4 +21,13 @@ class Workshop04Spec extends Specification {
      * what approaches can you use to provide the fake url object? Can you use
      * Spock mocks?</p>
      */
+    def "Should evaluate the word count for the text at a source URL"() {
+        given: "A WordStats instance"
+        def stats = new WordStats(GroovyMock(URL) {
+            getText("UTF-8") >> SAMPLE_TEXT
+        })
+
+        expect: "The character count to match the real value for the sample text"
+        stats.charCount == 198
+    }
 }

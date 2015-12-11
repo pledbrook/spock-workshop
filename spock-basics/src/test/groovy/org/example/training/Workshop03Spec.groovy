@@ -1,6 +1,9 @@
 package org.example.training
 
 import org.example.training.mocks.Book
+import org.example.training.mocks.BookArchiver
+import org.example.training.mocks.BookDao
+import org.example.training.mocks.RestClient
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -34,4 +37,35 @@ class Workshop03Spec extends Specification {
      * original JSON. It should also return the {@code Book} instance each time.
      * </p>
      */
+    def "Should archive all the books provided by the corresponding URL"() {
+
+        given: "A mock REST client"
+        RestClient client = Stub {
+            getContent(_) >> """
+{"books": [
+  { "title": "Colossus", "author": "Niall Ferguson"},
+  { "title": "Empire", "author": "Niall Ferguson"},
+  { "title": "Misery", "author": "Stephen King"},
+  { "title": "The Kite Runner", "author": "Khaled Hosseini"}
+]}
+"""
+        }
+
+        and: "A mock DAO"
+        BookDao dao = Mock()
+
+        and: "An archiver using those stubs/mocks"
+        def archiver = new BookArchiver(client, dao)
+
+        when: "I archive the books provided by the stub REST client"
+        def books = archiver.archiveBooks()
+
+        then: "All the books are returned as a list"
+        books == expectedBooks
+
+        and: "Every book is persisted"
+        for (book in expectedBooks) {
+            1 * dao.persist(book) >> book
+        }
+    }
 }
