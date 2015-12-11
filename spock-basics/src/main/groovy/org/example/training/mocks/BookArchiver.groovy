@@ -1,5 +1,7 @@
 package org.example.training.mocks
 
+import groovy.json.JsonSlurper
+
 /**
  * Created by pledbrook on 12/10/15.
  */
@@ -17,9 +19,9 @@ class BookArchiver {
     List<Book> archiveBooks() {
         def jsonString = restClient.getContent(BOOKS_URL)
 
-        // TODO: Complete the rest of this implementation. See the test case to
-        // learn what structure the JSON has and what format the dates take.
-        // Note that Book is an immutable class, so you can only use the tuple
-        // constructor Book(String, String), not the Groovy Beans one.
+        def json = new JsonSlurper().parseText(jsonString)
+        return json.books.collect { bookDefn ->
+            dao.persist(new Book(bookDefn.title, bookDefn.author))
+        }
     }
 }
