@@ -1,0 +1,22 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "io.ratpack:ratpack-gradle:1.1.1"
+    }
+}
+
+apply plugin: "io.ratpack.ratpack-base"
+apply plugin: "groovy"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile project(":todo-app")
+    testCompile ratpack.dependency("groovy-test")
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+}

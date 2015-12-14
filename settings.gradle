@@ -1,4 +1,4 @@
-include "spock-basics"
+include "spock-basics", "todo-app", "functional-tests", "browser-tests"
 
 rootProject.name = "spock-workshop"
 
