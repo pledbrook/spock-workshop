@@ -4,6 +4,7 @@ allprojects {
 
 idea {
     project {
-        vcs = 'Git'
+        vcs = "Git"
+        wildcards.add "ratpack.groovy"
     }
 }

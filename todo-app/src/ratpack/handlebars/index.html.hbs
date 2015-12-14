@@ -1,0 +1,38 @@
+{{#partial "title"}}TODOs{{/partial}}
+
+{{#partial "content"}}
+    <div class="panel panel-default">
+        <div class="panel-heading">TODOs</div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Contents</th>
+                <th>Completed</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            {{#each todos}}
+                <tr>
+                    <td>{{contents}}</td>
+                    <td>{{completed}}</td>
+                    <td><a class="btn btn-default" href="/todo/{{id}}" role="button">Edit</a></td>
+                    <td>
+                        <form class="form-inline" action="/todo/{{id}}/delete" method="post">
+                            <button class="btn btn-default" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {{/each}}
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <form class="form-inline" action="clear" method="post">
+        <button class="btn btn-default" type="submit" id="clear">Clear</button>
+    </form>
+{{/partial}}
+
+{{> layout.html}}

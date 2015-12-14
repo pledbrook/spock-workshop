@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "io.ratpack:ratpack-gradle:1.1.1"
+    }
+}
+
+apply plugin: "io.ratpack.ratpack-groovy"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile ratpack.dependency("groovy")
+
+    compile ratpack.dependency("h2")
+    compile "org.jooq:jooq:3.7.1"
+
+    compile ratpack.dependency("handlebars")
+
+    runtime "org.apache.logging.log4j:log4j-slf4j-impl:2.2"
+    runtime "org.apache.logging.log4j:log4j-api:2.2"
+    runtime "org.apache.logging.log4j:log4j-core:2.2"
+    runtime "com.lmax:disruptor:3.3.0"
+
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+}
